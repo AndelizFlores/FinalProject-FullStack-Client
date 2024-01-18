@@ -91,7 +91,8 @@ const Newfeed = () => {
       {/*1*/}
       <div className="user-Newfeed">
         {/* <h1>1</h1> */}
-        <button className="addGamesNF" onClick={addGames}>Add Games</button>
+        <button className="addGamesNF" onClick={addGames}></button>
+        
         {games.length > 0 && user && (
           <>
             {gamesLibrary.length > 0 && (
@@ -281,16 +282,19 @@ const Newfeed = () => {
                 className="img-Newfeed"
               />
               <figcaption>
+                
                 <h2 className="h2-Newfeed">{thisUser.username}</h2> {/*Name*/}
+               
                 <div className="p-Newfeed">
                   <p>{thisUser.description}</p> {/*Decription*/}
                 </div>
                 <div className="icons">
-                  <button>
+                <button className=" primary ghost"><a href="/profile">Profile</a></button>
+                  {/* <button>
                     <a href="/profile">
                       <i className="ion-social-twitter-outline"></i>
                     </a>
-                  </button>
+                  </button> */}
                 </div>
               </figcaption>
             </figure>

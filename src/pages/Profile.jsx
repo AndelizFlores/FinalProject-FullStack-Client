@@ -354,12 +354,12 @@ const Profile = () => {
                       onChange={handleTextChange}
                     />
 
-                    <div className="btnpost">
-                      <button className="buttonSignup-register" type="submit">
-                        <span className="span1"></span>
+                    <div>
+                      <button className="submitBTN1" type="submit">
+                        {/* <span className="span1"></span>
                         <span className="span2"></span>
                         <span className="span3"></span>
-                        <span className="span4"></span>
+                        <span className="span4"></span> */}
                         Submit
                       </button>
                     </div>
@@ -418,17 +418,15 @@ const Profile = () => {
                                 <h4>{thisPost.text}</h4>
                               </div>
                               <p>
-                                <span>
-                                  <CiEdit
+                                
+                                <button className="editGame" 
                                     onClick={() => setIsEditing(index, thisPost._id)}
-                                  />
-                                </span>{" "}
-                                {thisPost.isEditing && <p>Edit post</p>}
-                                <span>
-                                  <MdDeleteForever
-                                    onClick={() => deletePost(thisPost._id)}
-                                  />
-                                </span>
+                                  > </button>
+                               
+                                {thisPost.isEditing && <p className="pEdit-post">editing in process...</p>}
+                                   <button className="deleteGame" 
+                                    onClick={() => deletePost(thisPost._id)}>
+                                    </button>
                               </p>
                                 {thisPost.isEditing && 
                                               <form className="boxpost" onSubmit={(e) => handleChangeSubmit(e, thisPost._id)}>
@@ -449,7 +447,7 @@ const Profile = () => {
                                                   />
                               
                                                   <div className="btnpost">
-                                                    <button className="buttonSignup-register" type="submit">
+                                                    <button className="submitBTN2" type="submit">
                                                       <span className="span1"></span>
                                                       <span className="span2"></span>
                                                       <span className="span3"></span>
@@ -513,28 +511,31 @@ const Profile = () => {
           <div className="buttons">
             {/* <button className="primary">Game Library</button> */}
             {/* <button className="primary ghost">Following</button> */}
-            <button className="primary ghost">Follow ME</button>
+            <button className="primary ghost"><a href="/games">PRESS START</a></button>
           </div>
           {/* gamesLibrary.map((game) => {
                   return ( */}{" "}
           {/* //duda*/}
           <div className="platformsprofile">
-            <h6>I play in the...</h6>
-            {/* {users.map((user) => {  
-        const platform = platforms.find((platform) => user._id === user.platforms);
-        return( */}
-            <ul>
-              {/* <li>{thisUser.platforms}</li> */}
-              <li>ejemplo</li>
-              <li>ejemplo</li>
-              <li>ejemplo</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+      {thisUser && (
+        <>
+          <h6>I play on the following platforms:</h6>
+          {thisUser.platforms.length > 0 && (
+            <div className="platforms-used">
+              <ul>
+                {thisUser.platforms.map((platform, index) => (
+                  <li key={index}>{platform}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </>
+      )}
     </div>
-  );
-};
+  </div>
+</div>
+</div>
+)}
 
 export default Profile;
 

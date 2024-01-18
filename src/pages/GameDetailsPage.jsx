@@ -33,137 +33,119 @@ function GameDetailsPage() {
   return (
     <div className="GameDetailsPage">
       {game && (
-        <div className="DivDetails1">
-        <div className="details">
-          <h3>{game.name}</h3>
-          <div className="platform-container">
-            {" "}
-            {/*need style */}
-            {game.platforms.length > 0 && (
-              <div className="platform2">
-                {game.platforms.map((platform) => {
-                  return (
-                    <div className="plat-DIV"> {platform.platform.name} </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-          <img
-            className="bg-detailsGame"
-            src={game.background_image}
-            alt="game-image"
-          />
-          <div className="release-esrb-meta-DIV">
-            <div>
-              <h2>Release date: </h2>
-              <p>{game.released}</p>
+        <div className="one">
+          <div className="one-one">
+            <h3 className="h3-details">{game.name}</h3>
+            <div className="platform-container">
+              {/*PLATFORM*/}
+              {game.platforms.length > 0 && (
+                <div className="platform2">
+                  {game.platforms.map((platform) => {
+                    return (
+                      <div className="plat-DIV"> {platform.platform.name} </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
-            <div className="details-container">
-              <div>
+            <div className="image-details">
+              <img
+                className="bg-detailsGame"
+                src={game.background_image}
+                alt="game-image"
+              ></img>
+            </div>
+            <div className="release-esrb-meta-DIV">
+              <div className="details-div2">
+                <h2>Release date: </h2>
+                <p>{game.released}</p>
+              </div>
+
+              <div className="details-div2">
                 <h2>ESRB Rating: </h2>
                 <p>{game.esrb_rating && game.esrb_rating.name}</p>
               </div>
-              <div>
+              <div className="details-div2">
                 <h2>Metacritics: </h2>
+
+                <p>{game.metacritic}</p>
               </div>
-              <p>{game.metacritic}</p>
             </div>
+
             <div className="screenshot-container">
               {game.short_screenshots.length > 0 && (
                 <div className="screenshots">
-                  {game.short_screenshots.map((shot) => {
-                    return (
-                      <img
-                        className="screenshot-IMG"
-                        src={shot.image}
-                        alt="screenshot"
-                      />
-                    );
-                  })}
-                </div>
-              )}
-              </div>
-            </div> 
-            <div className="DivDetails2">
-             <div className="genre-container">
-              {game.stores.length > 0 && (
-                <div className="genre">
-                  {game.stores.map((store) => {
-                    return <p> {store.store.name} </p>;
-                  })}
-                </div>
-              )}
-            </div> 
-
-            <div className="platform-container">
-              {" "}
-              {/*requirements*/}
-              {game.platforms.length > 0 && (
-                <div className="platform">
-                  {game.platforms.map((platform) =>
-                    platform.platform.name === "PC" &&
-                    platform["requirements_en"] ? (
-                      <>
-                        <h3>Requirements</h3>
-                        {/* <p> {platform.platform.name} </p>{" "} */}
-                        <div
-                          dangerouslySetInnerHTML={{
-                            __html: platform["requirements_en"].minimum,
-                          }}
-                        ></div>
-                      </>
-                    ) : (
-                      <p></p>
-                    )
-                  )}
+                  {game.short_screenshots.map((shot) => (
+                    <img
+                      key={shot.id} // Add a unique key for each screenshot
+                      className="screenshot-IMG"
+                      src={shot.image}
+                      alt="screenshot"
+                    />
+                  ))}
                 </div>
               )}
             </div>
-            <div className="requirement-container">
-            {game.platforms.length > 0 && (
-              <div className="platform">
-                {game.platforms.map((platform) => {
-                  return (
-                  <p> {platform.platform.name} </p>)
-                })}
-              </div>
-            )}
           </div>
-            <h3>Stores</h3>
-            <div className="stores-container">
-              {game.stores.length > 0 && (
-                <div className="stores">
-                  {game.stores.map((store) => {
-                    return <div className="store-DIV">{store.store.name}</div>;
-                  })}
-                </div>
-              )}
+
+          <div className="one-two">
+            <h3 className="h3-stores">Stores 🛒</h3>
+            <div className="DivDetails2">
+              <div className="stores-container">
+                {game.stores.length > 0 && (
+                  <div className="stores">
+                    {game.stores.map((store) => (
+                      <div className="store-DIV">
+                        <p key={store.store.id}>{store.store.name}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
-            <h3>Tags</h3>
-            <div className="tags-container">
-              {game.tags.length > 0 && (
-                <div className="tags">
-                  {game.tags.map((tag) => {
-                    return (
-                      <div className="AllTags">
+
+            <div>
+              <div>
+                {game.platforms.length > 0 && (
+                  <div className="platform">
+                    {game.platforms.map((platform) =>
+                      platform.platform.name === "PC" &&
+                      platform["requirements_en"] ? (
+                        <div key={platform.platform.id}>
+                          <h3 className="h3-requirements">Requirements</h3>
+                          <div
+                            className="requirements-details"
+                            key={platform.platform.id}
+                            dangerouslySetInnerHTML={{
+                              __html: platform["requirements_en"].minimum,
+                            }}
+                          ></div>
+                        </div>
+                      ) : null
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="tagsDetails">Tags</h3>
+              <div className="tags-container">
+                {game.tags.length > 0 && (
+                  <div className="tags">
+                    {game.tags.map((tag) => (
+                      <div key={tag.id} className="AllTags">
                         <div className="tags1">
-                          <div className="tagFace front">
-                            <img
-                              className="IMG-tag"
-                              src={coverTAGS}
-                              alt="game-image"
-                            />
-                            <p> {tag.name} </p>;
+                          <div className="tagFace tag">
+                            <p>{tag.name}</p>
                           </div>
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
-              )}
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
           </div>
         </div>
       )}
@@ -172,3 +154,147 @@ function GameDetailsPage() {
 }
 
 export default GameDetailsPage;
+
+//     <div className="GameDetailsPage">
+//       {game && (
+//         <div className="DivDetails0">
+//         <div className="DivDetails1">
+//         <div className="details">
+//           <h3>{game.name}</h3>
+//           <div className="platform-container">
+//             {" "}
+//             {/*need style */}
+//             {game.platforms.length > 0 && (
+//               <div className="platform2">
+//                 {game.platforms.map((platform) => {
+//                   return (
+//                     <div className="plat-DIV"> {platform.platform.name} </div>
+//                   );
+//                 })}
+//               </div>
+//             )}
+//           </div>
+//           <img
+//             className="bg-detailsGame"
+//             src={game.background_image}
+//             alt="game-image"
+//           />
+//           <div className="release-esrb-meta-DIV">
+//             <div>
+//               <h2>Release date: </h2>
+//               <p>{game.released}</p>
+//             </div>
+//             <div className="details-container">
+//               <div>
+//                 <h2>ESRB Rating: </h2>
+//                 <p>{game.esrb_rating && game.esrb_rating.name}</p>
+//               </div>
+//               <div>
+//                 <h2>Metacritics: </h2>
+//               </div>
+//               <p>{game.metacritic}</p>
+//             </div>
+//             <div className="screenshot-container">
+//               {game.short_screenshots.length > 0 && (
+//                 <div className="screenshots">
+//                   {game.short_screenshots.map((shot) => {
+//                     return (
+//                       <img
+//                         className="screenshot-IMG"
+//                         src={shot.image}
+//                         alt="screenshot"
+//                       />
+//                     );
+//                   })}
+//                 </div>
+//               )}
+//               </div>
+//             </div>
+//             <div className="DivDetails2">
+//              <div className="genre-container">
+//               {game.stores.length > 0 && (
+//                 <div className="genre">
+//                   {game.stores.map((store) => {
+//                     return <p> {store.store.name} </p>;
+//                   })}
+//                 </div>
+//               )}
+//             </div>
+
+//             <div className="platform-container">
+//               {" "}
+//               {/*requirements*/}
+//               {game.platforms.length > 0 && (
+//                 <div className="platform">
+//                   {game.platforms.map((platform) =>
+//                     platform.platform.name === "PC" &&
+//                     platform["requirements_en"] ? (
+//                       <>
+//                         <h3>Requirements</h3>
+//                         {/* <p> {platform.platform.name} </p>{" "} */}
+//                         <div
+//                           dangerouslySetInnerHTML={{
+//                             __html: platform["requirements_en"].minimum,
+//                           }}
+//                         ></div>
+//                       </>
+//                     ) : (
+//                       <p></p>
+//                     )
+//                   )}
+//                 </div>
+//               )}
+//             </div>
+//             <div className="requirement-container">
+//             {game.platforms.length > 0 && (
+//               <div className="platform">
+//                 {game.platforms.map((platform) => {
+//                   return (
+//                   <p> {platform.platform.name} </p>)
+//                 })}
+//               </div>
+//             )}
+//           </div>
+//             <h3>Stores</h3>
+//             <div className="stores-container">
+//               {game.stores.length > 0 && (
+//                 <div className="stores">
+//                   {game.stores.map((store) => {
+//                     return <div className="store-DIV">{store.store.name}</div>;
+//                   })}
+//                 </div>
+//               )}
+//             </div>
+//             <h3>Tags</h3>
+//             <div className="tags-container">
+//               {game.tags.length > 0 && (
+//                 <div className="tags">
+//                   {game.tags.map((tag) => {
+//                     return (
+//                       <div className="AllTags">
+//                         <div className="tags1">
+//                           <div className="tagFace front">
+//                             <img
+//                               className="IMG-tag"
+//                               src={coverTAGS}
+//                               alt="game-image"
+//                             />
+//                             <p> {tag.name} </p>;
+//                           </div>
+//                         </div>
+//                       </div>
+//                     );
+//                   })}
+//                 </div>
+//               )}
+//             </div>
+//           </div>
+//           </div>
+//         </div>
+//         </div>
+//       )}
+//     </div>
+
+//   );
+
+// }
